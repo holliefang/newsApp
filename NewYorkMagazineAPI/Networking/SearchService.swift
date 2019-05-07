@@ -64,9 +64,7 @@ class SearchService {
             var request = URLRequest(url: url)
             request.addValue("648dde22d5134d1b95541132698f961d", forHTTPHeaderField: "X-Api-Key")
             
-            let task = URLSession.shared
-            
-            task.dataTask(with: request) { (data, response, error) in
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
             
                 do{
                     self.updateResult(error, data, response)
@@ -110,9 +108,7 @@ class SearchService {
             var request = URLRequest(url: url)
             request.setValue("648dde22d5134d1b95541132698f961d", forHTTPHeaderField: "X-Api-Key")
             
-            let task = URLSession.shared
-            
-            task.dataTask(with: request) { (data, response, error) in
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
                 
                 do{
                     self.updateResult(error, data, response)
@@ -129,10 +125,6 @@ class SearchService {
         }
         
     }
-    
-//    func requestWithURL(urlString: String, parameters: [String: Any], completion: @escaping (Data) -> Void) {
-//
-//    }
     
 }
 

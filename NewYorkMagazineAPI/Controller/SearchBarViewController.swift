@@ -88,6 +88,7 @@ extension SearchBarViewController: UITableViewDataSource {
         cell.titleLabel.text = resultsNews.first?.articles[indexPath.row].title
         cell.authorLabel.text = resultsNews.first?.articles[indexPath.row].author
         cell.timeLabel.text = resultsNews.first?.articles[indexPath.row].publishedAt
+        print("dsadadasd\(resultsNews.first?.articles[0].content)")
                 
         if let input = resultsNews.first?.articles[indexPath.row].publishedAt {
             
