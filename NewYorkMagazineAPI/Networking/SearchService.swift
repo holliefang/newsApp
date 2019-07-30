@@ -8,24 +8,26 @@
 
 import Foundation
 
-typealias NewsResult = ([News]) -> ()
-var news: [News] = []
-
-enum Sorts: String, CodingKey {
-    case popularity
-    case relevancy
-    case publishedAt
-}
-
-enum Sources: String, CodingKey {
-    case bbcNews = "bbc-news"
-    case newYorkMegazine = "new-york-magazine"
-}
-
 //https://newsapi.org/v2/everything?q=apple&sortBy=popularity&apiKey=648dde22d5134d1b95541132698f961d
 
 
 class SearchService {
+    
+    typealias NewsResult = ([News]) -> ()
+    var news: [News] = []
+    
+    enum Sorts: String, CodingKey {
+        case popularity
+        case relevancy
+        case publishedAt
+    }
+    
+    enum Sources: String, CodingKey {
+        case bbcNews = "bbc-news"
+        case newYorkMegazine = "new-york-magazine"
+    }
+    
+
     
     fileprivate func updateResult(_ error: Error?, _ data: Data?, _ response: URLResponse?) {
         news.removeAll()
@@ -71,7 +73,7 @@ class SearchService {
                 }
                 
                 DispatchQueue.main.async {
-                    completion(news)
+                    completion(self.news)
                 }
 
                 
@@ -115,7 +117,7 @@ class SearchService {
                 }
                 
                 DispatchQueue.main.async {
-                    completion(news)
+                    completion(self.news)
                 }
                 
                 

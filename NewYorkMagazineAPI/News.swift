@@ -41,10 +41,30 @@ struct News: Decodable {
         return image!
         
     }
+    
+    static func fetchDate(publishTime: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        
+        let formatterISO8601 = ISO8601DateFormatter()
+        if let date = formatterISO8601.date(from: publishTime){
+            let dateString = formatter.string(from: date)
+            return dateString
+        }
+        
+        return ""
+
+    }
+    
+    static func showNewsToWebViewCtrller(_ news: News.Article, _ navigationController: UINavigationController?) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let webVC = storyboard.instantiateViewController(withIdentifier: "WebVC") as! WebViewController
+        webVC.currentNews = news
+        webVC.url = URL(string: news.url)
+        navigationController?.pushViewController(webVC, animated: true)
+    }
+    
+    
 
 }
-
-
-
-
-

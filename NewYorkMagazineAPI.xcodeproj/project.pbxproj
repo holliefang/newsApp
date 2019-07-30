@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF1265B0224B1B2700CA3276 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1265AF224B1B2700CA3276 /* Extension.swift */; };
+		CF2D14592282B6AF00D56B90 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2D14582282B6AF00D56B90 /* WebKit.framework */; };
+		CF2D145B22840A7900D56B90 /* FavoritedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2D145A22840A7900D56B90 /* FavoritedController.swift */; };
+		CF2D145D22841E1300D56B90 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2D145C22841E1300D56B90 /* GradientView.swift */; };
+		CF2D145F2286861C00D56B90 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2D145E2286861C00D56B90 /* NotificationName.swift */; };
 		CF9DE9732212A384000CCC7D /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9DE9722212A384000CCC7D /* SearchResultTableViewCell.swift */; };
 		CF9E50BE21F6FE3F00F73BD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E50BD21F6FE3F00F73BD4 /* AppDelegate.swift */; };
 		CF9E50C021F6FE3F00F73BD4 /* HeadlinesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E50BF21F6FE3F00F73BD4 /* HeadlinesViewController.swift */; };
@@ -19,9 +24,15 @@
 		CFDAABAD21F9991D00DF8A3C /* SearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAABAC21F9991D00DF8A3C /* SearchBarViewController.swift */; };
 		CFDAABAF21FAEC5900DF8A3C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAABAE21FAEC5900DF8A3C /* WebViewController.swift */; };
 		CFDAABBA2202A7D500DF8A3C /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAABB92202A7D500DF8A3C /* SearchService.swift */; };
+		CFF161C222D5E57B005906A0 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF161C122D5E57B005906A0 /* Comment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CF1265AF224B1B2700CA3276 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		CF2D14582282B6AF00D56B90 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		CF2D145A22840A7900D56B90 /* FavoritedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritedController.swift; sourceTree = "<group>"; };
+		CF2D145C22841E1300D56B90 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		CF2D145E2286861C00D56B90 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		CF9DE9722212A384000CCC7D /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		CF9E50BA21F6FE3F00F73BD4 /* NewYorkMagazineAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewYorkMagazineAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF9E50BD21F6FE3F00F73BD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,6 +47,7 @@
 		CFDAABAC21F9991D00DF8A3C /* SearchBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarViewController.swift; sourceTree = "<group>"; };
 		CFDAABAE21FAEC5900DF8A3C /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		CFDAABB92202A7D500DF8A3C /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
+		CFF161C122D5E57B005906A0 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,17 +55,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF2D14592282B6AF00D56B90 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF1265B1224B1B3100CA3276 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CF1265AF224B1B2700CA3276 /* Extension.swift */,
+				CF2D145C22841E1300D56B90 /* GradientView.swift */,
+				CF2D145E2286861C00D56B90 /* NotificationName.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CF2D14572282B6AE00D56B90 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CF2D14582282B6AF00D56B90 /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CF9E50B121F6FE3F00F73BD4 = {
 			isa = PBXGroup;
 			children = (
 				CF9E50BC21F6FE3F00F73BD4 /* NewYorkMagazineAPI */,
 				CF9E50BB21F6FE3F00F73BD4 /* Products */,
+				CF2D14572282B6AE00D56B90 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -68,6 +100,7 @@
 		CF9E50BC21F6FE3F00F73BD4 /* NewYorkMagazineAPI */ = {
 			isa = PBXGroup;
 			children = (
+				CF1265B1224B1B3100CA3276 /* Extensions */,
 				CF9E50BD21F6FE3F00F73BD4 /* AppDelegate.swift */,
 				CFDAABBB2202A84100DF8A3C /* Controller */,
 				CF9E50D121F6FED200F73BD4 /* Model */,
@@ -84,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				CF9E50CF21F6FEC600F73BD4 /* News.swift */,
+				CFF161C122D5E57B005906A0 /* Comment.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -91,7 +125,6 @@
 		CF9E50D421F8379E00F73BD4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CFDAABAE21FAEC5900DF8A3C /* WebViewController.swift */,
 				CF9DE9722212A384000CCC7D /* SearchResultTableViewCell.swift */,
 				CF9E50D221F836E800F73BD4 /* HeadlinesViewCell.swift */,
 				CFD5F0C6221E5086002A1D2A /* TopHeadlinesCollectionViewCell.swift */,
@@ -113,6 +146,8 @@
 			children = (
 				CFDAABAC21F9991D00DF8A3C /* SearchBarViewController.swift */,
 				CF9E50BF21F6FE3F00F73BD4 /* HeadlinesViewController.swift */,
+				CFDAABAE21FAEC5900DF8A3C /* WebViewController.swift */,
+				CF2D145A22840A7900D56B90 /* FavoritedController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -149,6 +184,7 @@
 				TargetAttributes = {
 					CF9E50B921F6FE3F00F73BD4 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -190,10 +226,15 @@
 			files = (
 				CF9E50D321F836E800F73BD4 /* HeadlinesViewCell.swift in Sources */,
 				CFDAABAF21FAEC5900DF8A3C /* WebViewController.swift in Sources */,
+				CF2D145D22841E1300D56B90 /* GradientView.swift in Sources */,
+				CFF161C222D5E57B005906A0 /* Comment.swift in Sources */,
 				CF9DE9732212A384000CCC7D /* SearchResultTableViewCell.swift in Sources */,
 				CFDAABAD21F9991D00DF8A3C /* SearchBarViewController.swift in Sources */,
 				CFD5F0C7221E5086002A1D2A /* TopHeadlinesCollectionViewCell.swift in Sources */,
+				CF1265B0224B1B2700CA3276 /* Extension.swift in Sources */,
 				CF9E50D021F6FEC600F73BD4 /* News.swift in Sources */,
+				CF2D145B22840A7900D56B90 /* FavoritedController.swift in Sources */,
+				CF2D145F2286861C00D56B90 /* NotificationName.swift in Sources */,
 				CF9E50C021F6FE3F00F73BD4 /* HeadlinesViewController.swift in Sources */,
 				CFDAABBA2202A7D500DF8A3C /* SearchService.swift in Sources */,
 				CF9E50BE21F6FE3F00F73BD4 /* AppDelegate.swift in Sources */,
@@ -351,7 +392,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sihanfang.NewYorkMagazineAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -369,7 +410,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sihanfang.NewYorkMagazineAPI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

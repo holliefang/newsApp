@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UITabBar.appearance().barTintColor = .white
         UITabBar.appearance().backgroundColor = .white
-        UITabBar.appearance().tintColor = #colorLiteral(red: 0.1366210282, green: 0.1705083251, blue: 0.1752448976, alpha: 1)
+        UITabBar.appearance().tintColor = #colorLiteral(red: 0.8504036069, green: 0.4975422025, blue: 0.1730077267, alpha: 1)
         
         return true
     }
