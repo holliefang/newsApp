@@ -17,53 +17,83 @@ class HeadlinesViewController: UIViewController {
     
     let searchService = SearchService()
     
-    var news = [News]() {
+    var news = [Article]() {
         didSet {
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+//                self.tableView.reloadData()
                 self.collectionView.reloadData()
             }
         }
+    }
+    
+    var otherNews = [Article]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+//                self.collectionView.reloadData()
+            }
+        }
+
     }
     
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        
+//        if let layout = collectionView.collectionViewLayout as? PinterestLayout {
+//            layout.delegate = self
+//        }
+        navigationItem.title = "Today's Headlines"
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.backItem?.title = ""
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        navigationItem.title = "Today's Headlines"
-    
-        DispatchQueue.main.async {
-            self.activityIndicator.startAnimating()
-            self.activityIndicator.isHidden = false
+        
+            
+        getNews(from: .theIrishTimes) { [unowned self] (articles) in
+            self.news = articles
         }
-
+        
+        getNews(from: .newYorkMegazine) { [unowned self] (articles) in
+            self.otherNews = articles
+        }
+    }
+    
+    private func getNews(from sources: Sources, completion:@escaping ([Article])-> ()) {
+        
         searchService.requestWithURL(urlString: "https://newsapi.org/v2/top-headlines",
-                                     sources: .newYorkMegazine) { (news) in
-                                     self.news = news
+                                     sources: sources) { (news) in
+                                        if let articles = news.first?.articles {
+                                        completion(articles)
+                                        }
                                         DispatchQueue.main.async {
                                             self.activityIndicator.stopAnimating()
                                             self.activityIndicator.isHidden = true }
         }
+
     }
+    
+    
+    
 }
 
 extension HeadlinesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return news.first?.articles.count ?? 1 
+        return otherNews.count
         
     }
     
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
 //    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -75,28 +105,55 @@ extension HeadlinesViewController: UITableViewDataSource, UITableViewDelegate {
         return .leastNormalMagnitude
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "Today"
-        }
-        return "Headlines from NYT"
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//            return "Today"
+//
+//    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView(frame: CGRect(x: 0,
+                                              y: 0,
+                                              width: view.frame.width,
+                                              height: 40))
+        headerView.backgroundColor = .white
+        
+        let label = UILabel(frame: CGRect(x: 0,
+                                          y: 0,
+                                          width: view.frame.width,
+                                          height: 40))
+        let attrubutedText = NSAttributedString(string: "Topics",
+                                                attributes: [NSAttributedString.Key.font: UIFont(name: "Hoefler Text", size: 20)!,
+                                                             NSAttributedString.Key.foregroundColor: UIColor.black
+            ])
+
+        label.attributedText = attrubutedText
+        label.textAlignment = .center
+        headerView.addSubview(label)
+        return headerView
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        if let result = news.first?.articles[indexPath.row] {
-            let dateString = News.fetchDate(publishTime: result.publishedAt)
-            cell.textLabel?.text = result.title
-            cell.detailTextLabel?.text = dateString
+        if let cell = tableView.dequeueReusableCell(withIdentifier: HeadlinesViewCell.cellID, for: indexPath) as? HeadlinesViewCell {
             
+            let result = otherNews[indexPath.row]
+            let dateString = News.fetchDate(publishTime: result.publishedAt)
+            cell.titleLabel.text = result.title
+            cell.dateLabel.text = dateString
+            cell.newsImageView.image = News.fetchImage(urlToImage: result.urlToImage!)
+
+            return cell
         }
-        return cell
+        
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.frame.height * 0.3
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let result = news.first?.articles[indexPath.row] else {return}
+        let result = otherNews[indexPath.row]
         News.showNewsToWebViewCtrller(result, navigationController)
     }
 
@@ -108,40 +165,54 @@ extension HeadlinesViewController: UICollectionViewDataSource, UICollectionViewD
 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width - 16, height: collectionView.frame.height - 16)
+        return CGSize(width: view.frame.width, height: collectionView.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        return news.first?.articles.count ?? 0
+        return news.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CVCell", for: indexPath) as! TopHeadlinesCollectionViewCell
-        if let result = news.first?.articles[indexPath.row] {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopHeadlinesCollectionViewCell.cellID, for: indexPath) as! TopHeadlinesCollectionViewCell
+         let result = news[indexPath.row]
             
-            if let imageURL = result.urlToImage {
+        if let imageURL = result.urlToImage {
                 let image = News.fetchImage(urlToImage: imageURL)
                 cell.set(result.title, image)
             }
-        }
+        let dateString = News.fetchDate(publishTime: result.publishedAt)
+        cell.dateLabel.text = dateString
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let result = news.first?.articles[indexPath.row] else {return}
+         let result = news[indexPath.row]
         News.showNewsToWebViewCtrller(result, navigationController)
         
     }
 }
 
+//extension HeadlinesViewController: PinterestLayoutDelegate {
+//    func collectionView(_ collectionView: UICollectionView,
+//                        heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
+//
+//        print("extension got called")
+//
+//        let imageUrl = news[indexPath.row].urlToImage
+////            return 150
+//        let image = News.fetchImage(urlToImage: imageUrl!)
+//        print(image.size.height, "...-....-....--..h of image...-....-....--..")
+//        return image.size.height / 2
+//    }
+//}
 
 
 

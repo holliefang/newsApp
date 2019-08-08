@@ -10,20 +10,23 @@ import UIKit
 import WebKit
 
 class WebViewController: UIViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
+//    @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var webView: WKWebView!
-    var currentNews: News.Article?
-    var savedNews: [News.Article]?
+    var currentNews: Article?
+    var savedNews: [Article]?
     
     var url = URL(string: "https://www.instapaper.com/u")
+    
+
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let urlRequest = URLRequest(url: url!)
         
-        collectionView.dataSource = self
+//        collectionView.dataSource = self
         navigationItem.title = "News"
         webView.navigationDelegate = self
         webView.load(urlRequest)
@@ -65,19 +68,19 @@ extension WebViewController: WKNavigationDelegate {
     }
     
 }
-
-extension WebViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .green
-        return cell
-    }
-    
-    
-}
+//
+//extension WebViewController: UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 3
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+//        cell.backgroundColor = .green
+//        return cell
+//    }
+//
+//
+//}
 
 

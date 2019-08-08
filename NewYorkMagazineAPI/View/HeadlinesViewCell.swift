@@ -10,9 +10,12 @@ import UIKit
 
 class HeadlinesViewCell: UITableViewCell {
     
+    static let cellID = "Headlines Cell"
+    
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var detailLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var newsImageView: UIImageView!
+    @IBOutlet weak var favoriteImage: UIImageView!
     
     
 

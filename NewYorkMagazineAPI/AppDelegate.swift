@@ -15,9 +15,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        UITabBar.appearance().barTintColor = .white
-        UITabBar.appearance().backgroundColor = .white
-        UITabBar.appearance().tintColor = #colorLiteral(red: 0.8504036069, green: 0.4975422025, blue: 0.1730077267, alpha: 1)
+        let appearance = UITabBar.appearance()
+        appearance.barTintColor = .white
+        appearance.backgroundColor = .white
+        appearance.tintColor = .black
+        
+        let navibarAppearance = UINavigationBar.appearance()
+        navibarAppearance.tintColor = .black
+        navibarAppearance.backgroundColor = .white
+        navibarAppearance.titleTextAttributes = [
+            NSAttributedString.Key.font: UIFont(name: "Hoefler Text", size: 23)!
+        ]
+        navibarAppearance.shadowImage = UIImage()
+        
+        
+        
         
         return true
     }

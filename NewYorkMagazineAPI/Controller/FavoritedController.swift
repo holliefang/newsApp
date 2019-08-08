@@ -10,15 +10,16 @@ import UIKit
 
 class FavoritedController: UITableViewController {
     
-    var savedNews = [News.Article]() {
-        didSet{
-            self.tableView.reloadData()
-        }
-    }
+    var savedArticles = [Article]()
+//    {
+//        didSet{
+//            self.tableView.reloadData()
+//        }
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
         navigationItem.title = "Favorites"
         setupNotificationCenter()
         
@@ -27,10 +28,10 @@ class FavoritedController: UITableViewController {
     }
     
     func setupNotificationCenter() {
-        NotificationCenter.default.addObserver(forName: .newsRadio, object: nil, queue: .main) { (notification) in
+        NotificationCenter.default.addObserver(forName: .newsRadio, object: nil, queue: .main) {[unowned self] (notification) in
             let webVC = notification.object as! WebViewController
             if let news = webVC.currentNews {
-                self.savedNews.append(news)
+                self.savedArticles.append(news)
                 self.tableView.reloadData()
 
             }
@@ -44,30 +45,45 @@ class FavoritedController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return savedNews.count
+        return savedArticles.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        if let cell = tableView.dequeueReusableCell(withIdentifier: HeadlinesViewCell.cellID, for: indexPath) as? HeadlinesViewCell {
+            
+            let article = savedArticles[indexPath.row]
+            cell.dateLabel.text = News.fetchDate(publishTime: article.publishedAt)
+//            cell.newsImageView.image = News.fetchImage(urlToImage: article.urlToImage!)
+            cell.titleLabel.text = article.title
+        }
         
-        cell.textLabel?.text = savedNews[indexPath.row].title
 
-        return cell
+        return UITableViewCell()
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return view.frame.height * 0.2
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard savedNews.count > 0 else {return}
-        News.showNewsToWebViewCtrller(savedNews[indexPath.row], navigationController)
+        guard savedArticles.count > 0 else {return}
+        News.showNewsToWebViewCtrller(savedArticles[indexPath.row], navigationController)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard savedNews.count > 0 else {return}
-            savedNews.remove(at: indexPath.row)
-            tableView.beginUpdates()
-            tableView.endUpdates()
+            guard savedArticles.count > 0 else {return}
+            savedArticles.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+//            tableView.beginUpdates()
+//            tableView.endUpdates()
         }
+    
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
 

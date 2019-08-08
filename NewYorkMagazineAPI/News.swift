@@ -13,32 +13,18 @@ struct News: Decodable {
     
     var status: String
     var totalResults: Int
-    var articles: [Article]
+    var articles = [Article]()
     
-    struct Article: Decodable {
-        
-        var source: Megazine
-        
-        var author: String
-        var title: String
-        var description: String
-        var url: String
-        var urlToImage: String?
-        var publishedAt: String
-        var content: String
-        
-        struct Megazine: Decodable {
-            var id: String? = "new-york-magazine"
-            var name: String = "New York Magazine"
-        }
-    }
+
     
     static func fetchImage(urlToImage: String) -> UIImage {
         let url = URL(string: urlToImage)
-        let data = try? Data(contentsOf: url!)
-        let image = UIImage(data: data!)
-        
-        return image!
+        if let data = try? Data(contentsOf: url!) {
+            if let image = UIImage(data: data) {
+                return image
+            }
+        }
+        return UIImage()
         
     }
     
@@ -57,14 +43,68 @@ struct News: Decodable {
 
     }
     
-    static func showNewsToWebViewCtrller(_ news: News.Article, _ navigationController: UINavigationController?) {
+    static func showNewsToWebViewCtrller(_ news: Article, _ navigationController: UINavigationController?) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let webVC = storyboard.instantiateViewController(withIdentifier: "WebVC") as! WebViewController
+
         webVC.currentNews = news
         webVC.url = URL(string: news.url)
         navigationController?.pushViewController(webVC, animated: true)
     }
     
     
+
+}
+
+struct Article: Codable {
+    
+    var source: Source
+    
+    var author: String? = nil
+    var title: String
+    var description: String
+    var url: String
+    var urlToImage: String?
+    var publishedAt: String
+    var content: String
+    
+    func encode(to encoder: Encoder) throws {
+        
+    }
+}
+
+struct Source: Decodable {
+    var id: String? = nil
+    var name: String
+}
+
+enum Sorts: String, CodingKey {
+    case popularity
+    case relevancy
+    case publishedAt
+}
+
+enum Sources: String, CodingKey {
+    case bbcNews = "bbc-news"
+    case newYorkMegazine = "new-york-magazine"
+    case dailyMail = "daily-mail"
+    case mtvNews = "mtv-news"
+    case cbsNews = "cbs-news"
+    case googleNews = "google-news"
+    case focus = "focus"
+    case t3n = "t3n"
+    case theVerge = "the-verge"
+    case time = "time"
+    case wired = "wired"
+    case theGlobe = "the-globe-and-mail"
+    case techCrunch = "techcrunch"
+    case metro = "metro"
+    case mirror = "mirror"
+    case newScientist = "new-scientist"
+    case polygon = "polygon"
+    case theIrishTimes = "the-irish-times"
+    case redditAll = "reddit-r-all"
+    
+
 
 }

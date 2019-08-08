@@ -14,18 +14,12 @@ import Foundation
 class SearchService {
     
     typealias NewsResult = ([News]) -> ()
+    typealias ArticleResult = ([Article]) -> ()
     var news: [News] = []
     
-    enum Sorts: String, CodingKey {
-        case popularity
-        case relevancy
-        case publishedAt
-    }
+    var articles = [Article]()
     
-    enum Sources: String, CodingKey {
-        case bbcNews = "bbc-news"
-        case newYorkMegazine = "new-york-magazine"
-    }
+
     
 
     
@@ -36,16 +30,26 @@ class SearchService {
         if error != nil {
             print(errorMessage + "\(String(describing: error?.localizedDescription))")
         } else if let data = data {
+            print("-----------------scope came here------------------")
             if  let myData = try? JSONDecoder().decode(News.self, from: data) {
             news.append(myData)
-            } else {
-                print("\(String(describing: String(data: data, encoding: .utf8)))")
+                print(myData, "news are here or not")
             }
-            
+//                print("\(String(describing: String(data: data, encoding: .utf8)))")
         }
     }
+    
+    
+
+    
+    
+    
+    
     //MARK: - Search -
-    func networkingWithURL(urlString: String, searchTerm: String, sorts: Sorts, completion: @escaping NewsResult) {
+    func networkingWithURL(urlString: String,
+                           searchTerm: String,
+                           sorts: Sorts,
+                           completion: @escaping NewsResult) {
         
         if var urlComponents = URLComponents(string: urlString) {
             
@@ -62,8 +66,9 @@ class SearchService {
             urlComponents.queryItems = searchConditions
             
             guard let url = urlComponents.url else { return }
-            
+            print("=-=-the ultimate url requested by search =-=-=",url)
             var request = URLRequest(url: url)
+            request.httpMethod = "GET"
             request.addValue("648dde22d5134d1b95541132698f961d", forHTTPHeaderField: "X-Api-Key")
             
             URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -89,13 +94,21 @@ class SearchService {
                         sorts: Sorts? = nil,
                         sources: Sources,
                         searchTerm: String? = nil,
+                        country: String? = nil,
                         completion: @escaping NewsResult) {
         
         if var urlComponents = URLComponents(string: urlString) {
             
-            let queryPool = [
-                             "sources": sources.rawValue
-                             ]
+            var queryPool = [String: String]()
+            
+            if country != nil {
+                queryPool.updateValue(country!, forKey: "country")
+            } else {
+                queryPool = [ "sources": sources.rawValue
+                ]
+            }
+
+            
             var searchConditions = [URLQueryItem]()
             
             for (key, value) in queryPool {
@@ -104,11 +117,13 @@ class SearchService {
             }
             
             urlComponents.queryItems = searchConditions
-            
+            urlComponents.queryItems?.append(URLQueryItem(name: "apiKey",
+                                                          value: "648dde22d5134d1b95541132698f961d"))
             guard let url = urlComponents.url else { return }
-            print(url)
+            print("=-=-the ultimate url requested =-=-=",url)
             var request = URLRequest(url: url)
-            request.setValue("648dde22d5134d1b95541132698f961d", forHTTPHeaderField: "X-Api-Key")
+            request.addValue("648dde22d5134d1b95541132698f961d", forHTTPHeaderField: "X-Api-Key")
+            request.httpMethod = "GET"
             
             URLSession.shared.dataTask(with: request) { (data, response, error) in
                 

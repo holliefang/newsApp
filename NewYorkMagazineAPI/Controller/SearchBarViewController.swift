@@ -16,15 +16,16 @@ class SearchBarViewController: UIViewController {
     
     let searchService = SearchService()
     
-    var resultsNews = [News]() {
+    var resultsNews = [Article]() {
         didSet {
+            print(resultsNews.count, "number of news")
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
     
-    var savedNews = [News]()
+    var savedNews = [Article]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +63,9 @@ extension SearchBarViewController: UISearchBarDelegate {
                                         searchTerm: searchText,
                                         sorts: .popularity)
         { (news) in
-            self.resultsNews = news
+            print("WOOOOOW", news, "-0-0-0-0-0-WOOO-0-0-0-0-0-0)")
+            guard let articles = news.first?.articles else {return}
+            self.resultsNews = articles
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
@@ -76,34 +79,36 @@ extension SearchBarViewController: UISearchBarDelegate {
 extension SearchBarViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return resultsNews.first?.articles.count ?? 1
+        return resultsNews.count
         
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchResultTableViewCell
     
-        guard resultsNews.first?.articles != nil else {
+        if resultsNews.count < 0 {
             cell.titleLabel.text = "Search some news..."
-            cell.authorLabel.isHidden = true
-            cell.timeLabel.isHidden = true
-//            cell.imageView?.image = UIImage(named: "news@2x")
-            return cell
+                        cell.authorLabel.isHidden = true
+                        cell.timeLabel.isHidden = true
+                        return cell            
         }
-       
-        if let result = resultsNews.first?.articles[indexPath.row] {
 
-            if let imageUrl = result.urlToImage {
+        guard resultsNews.count > 0 else {return UITableViewCell()}
+        
+        let result = resultsNews[indexPath.row]
+        
+        if let imageUrl = result.urlToImage, let author = result.author {
             let image = News.fetchImage(urlToImage: imageUrl)
             let dateString = News.fetchDate(publishTime: result.publishedAt)
             cell.authorLabel.isHidden = false
             cell.timeLabel.isHidden = false
             
-
-            cell.set(title: result.title, author: result.author, date: dateString, image: image)
             
-            }
+            cell.set(title: result.title, author: author, date: dateString, image: image)
+            
         }
+       
+        
         return cell
     }
 }
@@ -114,16 +119,15 @@ extension SearchBarViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard resultsNews.first?.articles.count != nil else {return}
+        guard resultsNews.count > 0 else {return}
         
-        if let result = resultsNews.first?.articles[indexPath.row] {
+        let result = resultsNews[indexPath.row]
         News.showNewsToWebViewCtrller(result, navigationController)
-        }
+        
 
     }
-    
-
-    
     }
+
+
 
 
