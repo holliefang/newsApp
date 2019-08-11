@@ -11,6 +11,7 @@ import UIKit
 class FavoritedController: UITableViewController {
     
     var savedArticles = [Article]()
+    var newsData = [Data]()
 //    {
 //        didSet{
 //            self.tableView.reloadData()
@@ -23,8 +24,16 @@ class FavoritedController: UITableViewController {
         navigationItem.title = "Favorites"
         setupNotificationCenter()
         
-        
-
+        if let articles = UserDefaults.standard.value(forKey: "newsData") as? [Data] {
+            for articleData in articles {
+                newsData.append(articleData)
+                guard let article = try? JSONDecoder().decode(Article.self, from: articleData) else {return}
+                savedArticles.append(article)
+            }
+            self.tableView.reloadData()
+        } else {
+            print("nooooooo")
+        }
     }
     
     func setupNotificationCenter() {
@@ -33,7 +42,12 @@ class FavoritedController: UITableViewController {
             if let news = webVC.currentNews {
                 self.savedArticles.append(news)
                 self.tableView.reloadData()
-
+                
+                let userDefault = UserDefaults.standard
+                guard let articleData = try? JSONEncoder().encode(news) else {return}
+                self.newsData.append(articleData)
+                
+                userDefault.set(self.newsData, forKey: "newsData")
             }
         }
     }
@@ -54,7 +68,6 @@ class FavoritedController: UITableViewController {
             
             let article = savedArticles[indexPath.row]
             cell.dateLabel.text = News.fetchDate(publishTime: article.publishedAt)
-//            cell.newsImageView.image = News.fetchImage(urlToImage: article.urlToImage!)
             cell.titleLabel.text = article.title
         }
         

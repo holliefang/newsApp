@@ -15,29 +15,37 @@ class WebViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var webView: WKWebView!
     var currentNews: Article?
-    var savedNews: [Article]?
+//    var savedNews =  [Article]()
     
     var url = URL(string: "https://www.instapaper.com/u")
+    
+    var saveButton: UIBarButtonItem?
+    var shareButton: UIBarButtonItem?
+    
     
 
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let urlRequest = URLRequest(url: url!)
+        if let url = url {
+            let urlRequest = URLRequest(url: url)
+            webView.load(urlRequest)
+        }
         
 //        collectionView.dataSource = self
         navigationItem.title = "News"
         webView.navigationDelegate = self
-        webView.load(urlRequest)
+        
         setupNavButtons()
     }
     
     func setupNavButtons() {
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(handleSave))
-        let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleShare))
-        
-        navigationItem.rightBarButtonItems = [saveButton, shareButton]
+        saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(handleSave))
+        shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(handleShare))
+        if let saveButton = saveButton, let shareButton = shareButton {
+            navigationItem.rightBarButtonItems = [saveButton, shareButton]
+        }
     }
     @objc func handleShare() {
         guard let newsURL = currentNews?.url else {return}
@@ -47,6 +55,7 @@ class WebViewController: UIViewController {
     
     }
     @objc func handleSave() {
+        
         NotificationCenter.default.post(name: .newsRadio, object: self)
         let alert = UIAlertController(title: "Saved", message: "News Saved Successfully", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -60,11 +69,21 @@ extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
+        if let saveButton = saveButton, let shareButton = shareButton {
+            saveButton.isEnabled = false
+            shareButton.isEnabled = false
+        }
+        
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
+        if let saveButton = saveButton, let shareButton = shareButton {
+            saveButton.isEnabled = true
+            shareButton.isEnabled = true
+        }
+        
     }
     
 }

@@ -68,12 +68,9 @@ struct Article: Codable {
     var publishedAt: String
     var content: String
     
-    func encode(to encoder: Encoder) throws {
-        
-    }
 }
 
-struct Source: Decodable {
+struct Source: Codable {
     var id: String? = nil
     var name: String
 }
