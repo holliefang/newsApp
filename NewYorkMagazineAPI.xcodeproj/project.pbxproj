@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6BB8ACFB2344AB22004C4A48 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8ACFA2344AB22004C4A48 /* NewsViewModel.swift */; };
+		6BB8ACFD2344AB77004C4A48 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8ACFC2344AB77004C4A48 /* Box.swift */; };
+		6BB8ACFF23459BB4004C4A48 /* NewsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8ACFE23459BB4004C4A48 /* NewsDataSource.swift */; };
+		6BB8AD012345C199004C4A48 /* SavedNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8AD002345C199004C4A48 /* SavedNewsViewModel.swift */; };
 		CF1265B0224B1B2700CA3276 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1265AF224B1B2700CA3276 /* Extension.swift */; };
 		CF2D14592282B6AF00D56B90 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2D14582282B6AF00D56B90 /* WebKit.framework */; };
 		CF2D145B22840A7900D56B90 /* FavoritedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2D145A22840A7900D56B90 /* FavoritedController.swift */; };
 		CF2D145D22841E1300D56B90 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2D145C22841E1300D56B90 /* GradientView.swift */; };
 		CF2D145F2286861C00D56B90 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2D145E2286861C00D56B90 /* NotificationName.swift */; };
-		CF33635622F858EF0076861E /* NewYorkMagazineAPI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CF33635422F858EF0076861E /* NewYorkMagazineAPI.xcdatamodeld */; };
 		CF6DEE7022F08F78003C509E /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6DEE6F22F08F78003C509E /* PinterestLayout.swift */; };
 		CF9DE9732212A384000CCC7D /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9DE9722212A384000CCC7D /* SearchResultTableViewCell.swift */; };
 		CF9E50BE21F6FE3F00F73BD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9E50BD21F6FE3F00F73BD4 /* AppDelegate.swift */; };
@@ -26,16 +29,18 @@
 		CFDAABAD21F9991D00DF8A3C /* SearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAABAC21F9991D00DF8A3C /* SearchBarViewController.swift */; };
 		CFDAABAF21FAEC5900DF8A3C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAABAE21FAEC5900DF8A3C /* WebViewController.swift */; };
 		CFDAABBA2202A7D500DF8A3C /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDAABB92202A7D500DF8A3C /* SearchService.swift */; };
-		CFF161C222D5E57B005906A0 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF161C122D5E57B005906A0 /* Comment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6BB8ACFA2344AB22004C4A48 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
+		6BB8ACFC2344AB77004C4A48 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		6BB8ACFE23459BB4004C4A48 /* NewsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDataSource.swift; sourceTree = "<group>"; };
+		6BB8AD002345C199004C4A48 /* SavedNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedNewsViewModel.swift; sourceTree = "<group>"; };
 		CF1265AF224B1B2700CA3276 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		CF2D14582282B6AF00D56B90 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		CF2D145A22840A7900D56B90 /* FavoritedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritedController.swift; sourceTree = "<group>"; };
 		CF2D145C22841E1300D56B90 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		CF2D145E2286861C00D56B90 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
-		CF33635522F858EF0076861E /* NewYorkMagazineAPI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NewYorkMagazineAPI.xcdatamodel; sourceTree = "<group>"; };
 		CF6DEE6F22F08F78003C509E /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
 		CF9DE9722212A384000CCC7D /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		CF9E50BA21F6FE3F00F73BD4 /* NewYorkMagazineAPI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewYorkMagazineAPI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,7 +56,6 @@
 		CFDAABAC21F9991D00DF8A3C /* SearchBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarViewController.swift; sourceTree = "<group>"; };
 		CFDAABAE21FAEC5900DF8A3C /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		CFDAABB92202A7D500DF8A3C /* SearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
-		CFF161C122D5E57B005906A0 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6BB8ACF92344AB08004C4A48 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6BB8ACFA2344AB22004C4A48 /* NewsViewModel.swift */,
+				6BB8ACFE23459BB4004C4A48 /* NewsDataSource.swift */,
+				6BB8AD002345C199004C4A48 /* SavedNewsViewModel.swift */,
+				6BB8ACFC2344AB77004C4A48 /* Box.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
 		CF1265B1224B1B3100CA3276 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +130,7 @@
 				CF1265B1224B1B3100CA3276 /* Extensions */,
 				CFDAABBB2202A84100DF8A3C /* Controller */,
 				CF9E50D121F6FED200F73BD4 /* Model */,
+				6BB8ACF92344AB08004C4A48 /* ViewModel */,
 				CF6DEE6E22F08F3F003C509E /* Layout */,
 				CF9E50D421F8379E00F73BD4 /* View */,
 				CFDAABB82202A71C00DF8A3C /* Networking */,
@@ -130,8 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				CF9E50CF21F6FEC600F73BD4 /* News.swift */,
-				CFF161C122D5E57B005906A0 /* Comment.swift */,
-				CF33635422F858EF0076861E /* NewYorkMagazineAPI.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -238,20 +252,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BB8ACFF23459BB4004C4A48 /* NewsDataSource.swift in Sources */,
 				CF9E50D321F836E800F73BD4 /* HeadlinesViewCell.swift in Sources */,
 				CFDAABAF21FAEC5900DF8A3C /* WebViewController.swift in Sources */,
+				6BB8AD012345C199004C4A48 /* SavedNewsViewModel.swift in Sources */,
 				CF6DEE7022F08F78003C509E /* PinterestLayout.swift in Sources */,
 				CF2D145D22841E1300D56B90 /* GradientView.swift in Sources */,
-				CFF161C222D5E57B005906A0 /* Comment.swift in Sources */,
 				CF9DE9732212A384000CCC7D /* SearchResultTableViewCell.swift in Sources */,
 				CFDAABAD21F9991D00DF8A3C /* SearchBarViewController.swift in Sources */,
 				CFD5F0C7221E5086002A1D2A /* TopHeadlinesCollectionViewCell.swift in Sources */,
+				6BB8ACFB2344AB22004C4A48 /* NewsViewModel.swift in Sources */,
 				CF1265B0224B1B2700CA3276 /* Extension.swift in Sources */,
 				CF9E50D021F6FEC600F73BD4 /* News.swift in Sources */,
 				CF2D145B22840A7900D56B90 /* FavoritedController.swift in Sources */,
 				CF2D145F2286861C00D56B90 /* NotificationName.swift in Sources */,
-				CF33635622F858EF0076861E /* NewYorkMagazineAPI.xcdatamodeld in Sources */,
 				CF9E50C021F6FE3F00F73BD4 /* HeadlinesViewController.swift in Sources */,
+				6BB8ACFD2344AB77004C4A48 /* Box.swift in Sources */,
 				CFDAABBA2202A7D500DF8A3C /* SearchService.swift in Sources */,
 				CF9E50BE21F6FE3F00F73BD4 /* AppDelegate.swift in Sources */,
 			);
@@ -400,7 +416,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M2LHE433S9;
+				DEVELOPMENT_TEAM = MSDHWC5PV9;
 				INFOPLIST_FILE = NewYorkMagazineAPI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -418,7 +434,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M2LHE433S9;
+				DEVELOPMENT_TEAM = MSDHWC5PV9;
 				INFOPLIST_FILE = NewYorkMagazineAPI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -453,19 +469,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		CF33635422F858EF0076861E /* NewYorkMagazineAPI.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				CF33635522F858EF0076861E /* NewYorkMagazineAPI.xcdatamodel */,
-			);
-			currentVersion = CF33635522F858EF0076861E /* NewYorkMagazineAPI.xcdatamodel */;
-			path = NewYorkMagazineAPI.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = CF9E50B221F6FE3F00F73BD4 /* Project object */;
 }

@@ -33,4 +33,10 @@ class TopHeadlinesCollectionViewCell: UICollectionViewCell {
         self.titleLabel.textColor = .white
     }
     
+    func configure(dataSource delegate: NewsDataSource) {
+        topHeadlinesImageView.image = delegate.image
+        titleLabel.text = delegate.title
+        dateLabel.text = delegate.date
+    }
+    
 }

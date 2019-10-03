@@ -56,7 +56,11 @@ struct News: Decodable {
 
 }
 
-struct Article: Codable {
+struct Article: Codable, Equatable {
+    static func == (lhs: Article, rhs: Article) -> Bool {
+        return lhs.title == rhs.title
+    }
+    
     
     var source: Source
     

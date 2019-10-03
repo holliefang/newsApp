@@ -17,6 +17,12 @@ class HeadlinesViewCell: UITableViewCell {
     @IBOutlet weak var newsImageView: UIImageView!
     @IBOutlet weak var favoriteImage: UIImageView!
     
+    func configure(dataSource delegate: NewsDataSource) {
+        self.titleLabel.text = delegate.title
+        self.dateLabel.text = delegate.date
+        self.newsImageView.image = delegate.image
+    }
+    
     
 
 }

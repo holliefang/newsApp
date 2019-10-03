@@ -63,7 +63,6 @@ extension SearchBarViewController: UISearchBarDelegate {
                                         searchTerm: searchText,
                                         sorts: .popularity)
         { (news) in
-            print("WOOOOOW", news, "-0-0-0-0-0-WOOO-0-0-0-0-0-0)")
             guard let articles = news.first?.articles else {return}
             self.resultsNews = articles
             DispatchQueue.main.async {
@@ -107,8 +106,6 @@ extension SearchBarViewController: UITableViewDataSource {
             cell.set(title: result.title, author: author, date: dateString, image: image)
             
         }
-       
-        
         return cell
     }
 }

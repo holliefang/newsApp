@@ -22,6 +22,8 @@ class WebViewController: UIViewController {
     var saveButton: UIBarButtonItem?
     var shareButton: UIBarButtonItem?
     
+    let savedNewsModel = SavedNewsViewModel()
+    
     
 
 
@@ -33,10 +35,15 @@ class WebViewController: UIViewController {
             webView.load(urlRequest)
         }
         
-//        collectionView.dataSource = self
         navigationItem.title = "News"
         webView.navigationDelegate = self
         
+        
+        savedNewsModel.savedArticles.bind { (art) in
+            print(art, "printed from webcontroller")
+            print("the number of savedNews from web is \(self.savedNewsModel.savedArticles.value.count)")
+            
+        }
         setupNavButtons()
     }
     
@@ -46,6 +53,16 @@ class WebViewController: UIViewController {
         if let saveButton = saveButton, let shareButton = shareButton {
             navigationItem.rightBarButtonItems = [saveButton, shareButton]
         }
+        
+        guard currentNews != nil else {return}
+        for art in savedNewsModel.savedArticles.value {
+            if art.title == currentNews!.title {
+                saveButton?.isEnabled = false
+            } else {
+                saveButton?.isEnabled = true
+            }
+        }
+        
     }
     @objc func handleShare() {
         guard let newsURL = currentNews?.url else {return}
@@ -55,8 +72,8 @@ class WebViewController: UIViewController {
     
     }
     @objc func handleSave() {
-        
-        NotificationCenter.default.post(name: .newsRadio, object: self)
+        savedNewsModel.saveArticle(currentNews)
+//        NotificationCenter.default.post(name: .newsRadio, object: self)
         let alert = UIAlertController(title: "Saved", message: "News Saved Successfully", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true)
@@ -66,40 +83,25 @@ class WebViewController: UIViewController {
 
 extension WebViewController: WKNavigationDelegate {
     
+    
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
-        if let saveButton = saveButton, let shareButton = shareButton {
-            saveButton.isEnabled = false
-            shareButton.isEnabled = false
-        }
+//        if let saveButton = saveButton, let shareButton = shareButton {
+//            saveButton.isEnabled = false
+//            shareButton.isEnabled = false
+//        }
         
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
-        if let saveButton = saveButton, let shareButton = shareButton {
-            saveButton.isEnabled = true
-            shareButton.isEnabled = true
-        }
+//        if let saveButton = saveButton, let shareButton = shareButton {
+//            saveButton.isEnabled = true
+//            shareButton.isEnabled = true
+//        }
         
     }
     
 }
-//
-//extension WebViewController: UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return 3
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-//        cell.backgroundColor = .green
-//        return cell
-//    }
-//
-//
-//}
-
-
