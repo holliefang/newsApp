@@ -24,10 +24,6 @@ class WebViewController: UIViewController {
     
     let savedNewsModel = SavedNewsViewModel()
     
-    
-
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let url = url {
@@ -37,13 +33,17 @@ class WebViewController: UIViewController {
         
         navigationItem.title = "News"
         webView.navigationDelegate = self
-        
-        
-        savedNewsModel.savedArticles.bind { (art) in
-            print(art, "printed from webcontroller")
-            print("the number of savedNews from web is \(self.savedNewsModel.savedArticles.value.count)")
-            
+        savedNewsModel.duplicatesRemovedArray.bind { (art) in
+            print("I m changed this is from web")
+            print(art.count, "web's art")
+            NotificationCenter.default.post(name: .newsRadio, object: self)
         }
+        
+//        savedNewsModel.savedArticles.bind { (art) in
+//            print(art, "printed from webcontroller")
+//            print("the number of savedNews from web is \(self.savedNewsModel.savedArticles.value.count)")
+//
+//        }
         setupNavButtons()
     }
     
@@ -54,14 +54,6 @@ class WebViewController: UIViewController {
             navigationItem.rightBarButtonItems = [saveButton, shareButton]
         }
         
-        guard currentNews != nil else {return}
-        for art in savedNewsModel.savedArticles.value {
-            if art.title == currentNews!.title {
-                saveButton?.isEnabled = false
-            } else {
-                saveButton?.isEnabled = true
-            }
-        }
         
     }
     @objc func handleShare() {
@@ -73,7 +65,9 @@ class WebViewController: UIViewController {
     }
     @objc func handleSave() {
         savedNewsModel.saveArticle(currentNews)
-//        NotificationCenter.default.post(name: .newsRadio, object: self)
+        NotificationCenter.default.post(name: .newsRadio, object: self)
+        
+        
         let alert = UIAlertController(title: "Saved", message: "News Saved Successfully", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true)

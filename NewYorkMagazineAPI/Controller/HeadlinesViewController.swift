@@ -15,28 +15,7 @@ class HeadlinesViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     let newsModel = NewsViewModel()
-    
-//    let searchService = SearchService()
-    
-//    var news = [Article]() {
-//        didSet {
-//            DispatchQueue.main.async {
-////                self.tableView.reloadData()
-//                self.collectionView.reloadData()
-//            }
-//        }
-//    }
-//    
-//    var otherNews = [Article]() {
-//        didSet {
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-////                self.collectionView.reloadData()
-//            }
-//        }
-//
-//    }
-    
+        
     
     override func viewDidLoad() {
         
@@ -68,29 +47,7 @@ class HeadlinesViewController: UIViewController {
         
         
             
-//        getNews(from: .theIrishTimes) { [unowned self] (articles) in
-//            self.news = articles
-//        }
-//
-//        getNews(from: .newYorkMegazine) { [unowned self] (articles) in
-//            self.otherNews = articles
-//        }
     }
-    
-//    private func getNews(from sources: Sources, completion:@escaping ([Article])-> ()) {
-//
-//        searchService.requestWithURL(urlString: "https://newsapi.org/v2/top-headlines",
-//                                     sources: sources) { (news) in
-//                                        if let articles = news.first?.articles {
-//                                        completion(articles)
-//                                        }
-//                                        DispatchQueue.main.async {
-//                                            self.activityIndicator.stopAnimating()
-//                                            self.activityIndicator.isHidden = true }
-//        }
-//
-//    }
-    
     
     
 }
@@ -192,7 +149,6 @@ extension HeadlinesViewController: UICollectionViewDataSource, UICollectionViewD
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopHeadlinesCollectionViewCell.cellID, for: indexPath) as! TopHeadlinesCollectionViewCell
         newsModel.index = indexPath.row
-        
         cell.configure(dataSource: newsModel)
         
 //        let result = newsModel.news.value[indexPath.row]

@@ -30,10 +30,10 @@ class SearchService {
         if error != nil {
             print(errorMessage + "\(String(describing: error?.localizedDescription))")
         } else if let data = data {
-            print("-----------------scope came here------------------")
+//            print("-----------------scope came here------------------")
             if  let myData = try? JSONDecoder().decode(News.self, from: data) {
             news.append(myData)
-                print(myData, "news are here or not")
+//                print(myData, "news are here or not")
             }
 //                print("\(String(describing: String(data: data, encoding: .utf8)))")
         }

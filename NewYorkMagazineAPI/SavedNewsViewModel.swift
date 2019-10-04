@@ -9,20 +9,18 @@
 import UIKit
 
 class SavedNewsViewModel {
-    var savedArticles: Box<[Article]> = Box([])
-    var filteredArticles: [Article] {
-        return savedArticles.value.removingDuplicates()
-    }
+    private var savedArticles: Box<[Article]> = Box([])
+    var duplicatesRemovedArray = Box([Article]())
     private var newsData = [Data]()
     var index = 0
     
     func getArticle() {
         if let articles = UserDefaults.standard.value(forKey: "newsData") as? [Data] {
-            print(articles, "hello ")
+            print(articles)
             for articleData in articles {
                 newsData.append(articleData)
                 guard let article = try? JSONDecoder().decode(Article.self, from: articleData) else {return}
-                savedArticles.value.append(article)
+                duplicatesRemovedArray.value.append(article)
             }
             
         } else {
@@ -32,11 +30,19 @@ class SavedNewsViewModel {
     
     func saveArticle(_ article: Article?) {
         guard let art = article else {return}
-        savedArticles.value.append(art)
         guard let articleData = try? JSONEncoder().encode(art) else {return}
-        self.newsData.append(articleData)
-        UserDefaults.standard.set(self.newsData, forKey: "newsData")
         
+        self.newsData.append(articleData)
+        duplicatesRemovedArray.value = savedArticles.value.removingDuplicates()
+        duplicatesRemovedArray.value.append(art)
+        UserDefaults.standard.set(newsData.removingDuplicates(), forKey: "newsData")
+        
+        
+    }
+    
+
+    private func editedArray(_ array: [Article]) -> [Article] {
+        return array
     }
     
     init() {

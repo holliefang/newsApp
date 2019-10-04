@@ -10,18 +10,35 @@ import UIKit
 
 class FavoritedController: UITableViewController {
     
-    var savedNewsModel = SavedNewsViewModel()
+    let savedNewsModel = SavedNewsViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.title = "Favorites"
 //        savedNewsModel.getArticle()
-        savedNewsModel.savedArticles.bind { art in
-            print("reload")
-            print("\(self.savedNewsModel.savedArticles.value.count), the saved news from favorites controller")
+        savedNewsModel.duplicatesRemovedArray.bind { _ in
             self.tableView.reloadData()
+            
         }
+        
+        NotificationCenter.default.addObserver(forName: .newsRadio, object: nil, queue: .main, using: { (notification) in
+            print("Hello from favorited controller, art: \(self.savedNewsModel.duplicatesRemovedArray.value.count)")
+            let webVC = notification.object as! WebViewController
+            self.savedNewsModel.duplicatesRemovedArray.value = webVC.savedNewsModel.duplicatesRemovedArray.value
+//            self.savedNewsModel.getArticle()
+            
+            //                self.tableView.reloadData()
+        })
+
+//        savedNewsModel.savedArticles.bind { art in
+//            print("reload")
+//            print("\(self.savedNewsModel.savedArticles.value.count), the saved news from favorites controller")
+//            self.tableView.reloadData()
+//
+//
+//
+//        }
 //        setupNotificationCenter()
         
 //        if let articles = UserDefaults.standard.value(forKey: "newsData") as? [Data] {
@@ -59,7 +76,7 @@ class FavoritedController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return savedNewsModel.filteredArticles.count
+        return savedNewsModel.duplicatesRemovedArray.value.count
     }
 
     
@@ -68,7 +85,7 @@ class FavoritedController: UITableViewController {
             
 //            savedNewsModel.index = indexPath.row
 //            cell.configure(dataSource: savedNewsModel)
-            let article = savedNewsModel.filteredArticles[indexPath.row]
+            let article = savedNewsModel.duplicatesRemovedArray.value[indexPath.row]
             cell.dateLabel.text = News.fetchDate(publishTime: article.publishedAt)
             cell.titleLabel.text = article.title
             return cell
@@ -83,17 +100,17 @@ class FavoritedController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard savedNewsModel.savedArticles.value.count > 0 else {return}
-        News.showNewsToWebViewCtrller(savedNewsModel.savedArticles.value[indexPath.row], navigationController)
+        guard savedNewsModel.duplicatesRemovedArray.value.count > 0 else {return}
+        News.showNewsToWebViewCtrller(savedNewsModel.duplicatesRemovedArray.value[indexPath.row], navigationController)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard savedNewsModel.savedArticles.value.count > 0 else {return}
-//            savedArticles.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//            tableView.beginUpdates()
-//            tableView.endUpdates()
+            guard savedNewsModel.duplicatesRemovedArray.value.count > 0 else {return}
+            savedNewsModel.duplicatesRemovedArray.value.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.beginUpdates()
+            tableView.endUpdates()
         }
     
     }
